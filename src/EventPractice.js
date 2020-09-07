@@ -1,57 +1,42 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-class EventPrictice extends Component {
-  state = {
-    message: "",
-    username: "",
+const EventPractice = () => {
+  const [username, setUsername] = useState("");
+  const [message, setMessage] = useState("");
+  const onChangeUsername = (e) => setUsername(e.target.value);
+  const onChangeMessage = (e) => setMessage(e.target.value);
+  const onClick = () => {
+    alert(username + ":" + message);
+    setUsername("");
+    setMessage("");
   };
-
-  handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  handleClick = () => {
-    alert(this.state.username + ": " + this.state.message);
-    this.setState({
-      message: "",
-      username: "",
-    });
-  };
-
-  handleKeyPress = (e) => {
+  const onKeyPress = (e) => {
     if (e.key === "Enter") {
-      this.handleClick();
+      onClick();
     }
   };
 
-  render() {
-    return (
-      <div>
-        <h1>event practice</h1>
-        <input
-          type="text"
-          name="username"
-          placeholder="이름"
-          value={this.state.username}
-          onChange={this.handleChange}
-        />
+  return (
+    <div>
+      <h1>event practice</h1>
+      <input
+        type="text"
+        name="username"
+        placeholder="name"
+        value={username}
+        onChange={onChangeUsername}
+      />
+      <input
+        type="text"
+        name="message"
+        placeholder="message"
+        value={message}
+        onChange={onChangeMessage}
+        onKeyPress={onKeyPress}
+      />
+      <button onClick={onClick}>확인</button>
+    </div>
+  );
+};
 
-        <input
-          type="text"
-          name="message"
-          placeholder="input anything"
-          value={this.state.message}
-          onChange={(e) => {
-            this.setState({ message: e.target.value });
-          }}
-          onKeyPress={this.handleKeyPress}
-        />
-        <button onClick={this.handleClick}>확인</button>
-      </div>
-    );
-  }
-}
-
-export default EventPrictice;
+export default EventPractice;
